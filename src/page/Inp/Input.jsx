@@ -1,23 +1,54 @@
-import React from 'react'
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addUsers } from "../Redux/feature/UserSlice";
+import { useNavigate } from "react-router-dom";
 import "./Input.css"
-import { useNavigate } from 'react-router-dom'
+
 const Input = () => {
-    const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const handleSubmit = () =>{
-        navigate('/card')
-    }
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [profession, setProfession] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const user = {
+      id: Date.now(),
+      name,
+      age,
+      profession,
+    };
+
+    dispatch(addUsers(user));
+    navigate("/card");
+  };
+
   return (
-    <div>
-        <form className='inputCard' action="">
-            <input type="text" placeholder='Enter your name'/>
-            <input type="text" placeholder='Enter your age'/>
-            <input type="text" placeholder='Enter your profession'/>
+    <form className="inputCard" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Age"
+        value={age}
+        onChange={(e) => setAge(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Profession"
+        value={profession}
+        onChange={(e) => setProfession(e.target.value)}
+      />
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
 
-            <button type='submit' onClick={handleSubmit}>Submit</button>
-        </form>
-    </div>
-  )
-}
-
-export default Input
+export default Input;
