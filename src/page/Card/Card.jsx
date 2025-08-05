@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { deleteUser } from '../Redux/feature/UserSlice'
 import "./Card.css"
 const Card = () => {
-  const users = useSelector((state) => state.users)
+  const users = useSelector((state) =>  state.users)
   const dispatch = useDispatch()
 
   const handleDelete = (id) => {
